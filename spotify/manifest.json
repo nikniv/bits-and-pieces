@@ -1,0 +1,18 @@
+{
+  "manifest_version": 2,
+  "name": "Playlist Stringify",
+  "version": "0.1",
+
+  "description": "Generates a text list of songs on a Spotify playlist page",
+
+  "icons": {
+    "48": "icons/border-48.png"
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["*://*.spotify.com/playlist/*"],
+      "js": ["playlistStringifier.js"]
+    }
+  ]
+}
