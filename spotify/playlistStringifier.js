@@ -8,9 +8,23 @@ let songs;
 let artists;
 let albums;
 
+// const download = (file) => {
+//   const a = document.createElement("a"),
+//   const url = URL.createObjectURL(file);
+//   a.href = url;
+//   a.download = 'playlistString.txt';
+//   document.body.appendChild(a);
+//   a.click();
+//   setTimeout(function() {
+//     document.body.removeChild(a);
+//     window.URL.revokeObjectURL(url);  
+//   }, 0); 
+// }
+
 const playlist = () => {
   const merged = songs.map((song, index) => {
-    return { 
+    return {
+      track: index + 1,
       song,
       artist: artists[index], 
       album: albums[index]
@@ -23,7 +37,7 @@ const playlistStringArray = () => {
   const merged = songs.map((song, index) => {
     const artist = artists[index]; 
     const album = albums[index];
-    return `${artist} - ${song} [${album}]`;
+    return `#${index + 1}: ${artist} - ${song} [${album}]`;
   });
   return merged;
 }
@@ -33,7 +47,7 @@ const playlistStringTemplate = () => {
   songs.forEach((song, index) => {
     const artist = artists[index]; 
     const album = albums[index];
-    str += `${artist} - ${song} [${album}]\n`;
+    str += `#${index + 1}: ${artist} - ${song} [${album}]\n`;
   });
   return str;
 }
@@ -43,5 +57,24 @@ window.onload = (event) => {
   artists = [...document.getElementsByClassName(artistName)].map(elem => elem.innerText);
   albums = [...document.getElementsByClassName(albumName)].map(elem => elem.innerText);
 
-  console.log(playlistStringTemplate());
+  const playlistString = playlistStringTemplate();
+
+  const file = new File([playlistString], 'playlistString.txt', {
+    type: 'text/plain',
+  });
+  console.log(playlistString);
+  // window.open(URL.createObjectURL(file));
+  // download(file);
+
+  // const a = document.createElement("a"),
+  // const url = URL.createObjectURL(file);
+  // console.log(url)
+  // a.href = url;
+  // a.download = 'playlistString.txt';
+  // document.body.append(a);
+  // a.click();
+  // setTimeout(function() {
+  //   document.body.removeChild(a);
+  //   window.URL.revokeObjectURL(url);  
+  // }, 0); 
 };
